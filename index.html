@@ -1001,7 +1001,7 @@
       // daily milk target: most recent logged weight (kg) x 150 ml
       const wRows = DB.growth.filter(r => r.twin === t && r.weight !== null && r.weight > 0).sort((a, b) => dateFromKey(a.date) - dateFromKey(b.date) || a.row - b.row);
       const wl = wRows[wRows.length - 1];
-      $(`${id}-target`).textContent = wl ? `Target ${Math.round(wl.weight * 150)} ml (${wl.weight} kg × 150)` : 'Target: log a weight';
+      $(`${id}-target`).textContent = wl ? `Target ${Math.round(wl.weight * 150)} ml` : 'Target: log a weight';
 
       let last = null;
       feeds.forEach(r => { const ts = timestampOf(r); if (ts !== null && ts <= Date.now() + 60000 && (last === null || ts > last)) last = ts; });
