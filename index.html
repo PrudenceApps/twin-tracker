@@ -75,13 +75,13 @@
     @media (prefers-color-scheme: dark) { .banner { background: #4c1d1d; color: #fecaca; } }
 
     /* Navigation Tabs */
-    .tab-bar { display: flex; gap: 4px; margin-bottom: 16px; padding: 5px; background: var(--chip); border-radius: 18px; }
+    .tab-bar { display: flex; gap: 2px; margin-bottom: 16px; padding: 5px; background: var(--chip); border-radius: 18px; }
     .tab-btn {
-      flex: 1; padding: 11px 6px; border: none; border-radius: 14px; background: transparent;
-      font-family: inherit; font-weight: 800; cursor: pointer; color: var(--muted); font-size: 14px; transition: all 0.2s;
+      flex: 1; padding: 11px 2px; border: none; border-radius: 14px; background: transparent;
+      font-family: inherit; font-weight: 800; cursor: pointer; color: var(--muted); font-size: 11.5px; transition: all 0.2s;
       white-space: nowrap;
     }
-    .tab-btn.wide { flex: 1.7; }
+    .tab-btn.wide { flex: 1.5; }
     .tab-btn.active { background: var(--card-solid); color: var(--accent); box-shadow: 0 3px 10px rgba(0, 0, 0, 0.10); }
 
     .card {
@@ -107,6 +107,7 @@
     .margot h4 { color: var(--margot); } .margot h4 i { background: var(--margot); }
     .marshall h4 { color: var(--marshall); } .marshall h4 i { background: var(--marshall); }
     .stat-val { font-size: 28px; font-weight: 900; letter-spacing: -1px; color: var(--text); }
+    .stat-target { font-size: 12px; font-weight: 800; color: var(--text); opacity: 0.8; margin-top: 2px; }
     .stat-sub { font-size: 12px; font-weight: 700; color: var(--muted); margin-top: 4px; }
     .pump-strip {
       margin-top: 12px; padding: 10px; border-radius: 14px; background: var(--chip); text-align: center;
@@ -289,6 +290,40 @@
       color: var(--muted); font-size: 14px; font-weight: 900; cursor: pointer; transition: transform 0.12s, color 0.2s;
     }
     .need-remove:active { transform: scale(0.9); color: #dc2626; }
+
+    /* Milestones */
+    #milestonesBody .card { margin-bottom: 14px; }
+    .ms-ages { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .ms-age { border-radius: 18px; padding: 12px 10px; text-align: center; }
+    .ms-age.margot { background: var(--margot-soft); } .ms-age.marshall { background: var(--marshall-soft); }
+    .ms-age-name { font-weight: 800; font-size: 13px; color: var(--muted); }
+    .ms-age-val { font-weight: 900; font-size: 20px; margin: 2px 0; }
+    .ms-age-sub { font-size: 12px; font-weight: 700; color: var(--muted); margin-bottom: 8px; }
+    .ms-early { width: 100%; font-family: inherit; font-size: 12px; font-weight: 700; padding: 6px; border-radius: 10px; border: 1px solid var(--line); background: var(--input); color: var(--text); }
+    .ms-chips { display: flex; gap: 6px; overflow-x: auto; padding: 2px 0 10px; }
+    .ms-chip { flex: none; border: none; font-family: inherit; font-weight: 800; font-size: 13px; padding: 7px 12px; border-radius: 999px; background: var(--chip); color: var(--muted); cursor: pointer; }
+    .ms-chip.now { box-shadow: inset 0 0 0 2px var(--accent); }
+    .ms-chip.active { background: linear-gradient(135deg, var(--accent), #6366f1); color: #fff; }
+    .ms-rel { font-weight: 900; color: var(--accent); margin-top: 2px; }
+    .ms-sub { font-size: 12px; color: var(--muted); font-weight: 700; margin: 2px 0 8px; }
+    .ms-list { margin: 6px 0 0; padding-left: 20px; line-height: 1.45; font-weight: 600; }
+    .ms-list li { margin-bottom: 6px; }
+    .ms-tip { margin-top: 10px; padding: 10px 12px; border-radius: 14px; background: var(--chip); font-size: 14px; font-weight: 600; line-height: 1.4; }
+    .ms-disc { text-align: left; line-height: 1.4; font-weight: 600; }
+    .who-svg { width: 100%; height: auto; display: block; }
+    .who-grid { stroke: var(--line); stroke-width: 1; }
+    .who-ax { fill: var(--muted); font-size: 10px; font-weight: 700; }
+    .who-lab { font-size: 9px; }
+    .who-line { fill: none; stroke-width: 1; opacity: 0.35; }
+    .who-line.mid { stroke-width: 1.8; opacity: 0.6; }
+    .who-trace { fill: none; stroke-width: 2.5; }
+    .who-dot-actual { fill: none; stroke-width: 2; }
+    .who-dot { stroke: var(--card-solid); stroke-width: 1.5; }
+    .who-key { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; font-size: 12px; font-weight: 700; color: var(--muted); margin-top: 6px; }
+    .who-key i { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 5px; }
+    .who-res { margin-top: 10px; display: grid; gap: 8px; }
+    .who-row { padding: 10px 12px; border-radius: 14px; font-size: 14px; font-weight: 600; line-height: 1.4; }
+    .who-row.margot { background: var(--margot-soft); } .who-row.marshall { background: var(--marshall-soft); }
   </style>
 </head>
 <body>
@@ -307,6 +342,7 @@
   <div class="tab-bar">
     <button class="tab-btn active" data-tab="log-tab">🍼 Log Entry</button>
     <button class="tab-btn" data-tab="analytics-tab">📊 Analytics</button>
+    <button class="tab-btn" data-tab="milestones-tab">🌱 Growth</button>
     <button class="tab-btn wide" data-tab="needs-tab">🛒 Things We Need</button>
   </div>
 
@@ -320,12 +356,14 @@
         <div class="stat-box margot">
           <h4><i></i>Margot</h4>
           <div class="stat-val" id="margot-total">0 ml</div>
+          <div class="stat-target" id="margot-target">Target: --</div>
           <div class="stat-sub" id="margot-last">Last feed: --</div>
           <div class="stat-sub" id="margot-extra">😴 -- · 👶 0</div>
         </div>
         <div class="stat-box marshall">
           <h4><i></i>Marshall</h4>
           <div class="stat-val" id="marshall-total">0 ml</div>
+          <div class="stat-target" id="marshall-target">Target: --</div>
           <div class="stat-sub" id="marshall-last">Last feed: --</div>
           <div class="stat-sub" id="marshall-extra">😴 -- · 👶 0</div>
         </div>
@@ -415,6 +453,9 @@
       <div id="dayLogs"></div>
     </div>
   </div>
+
+  <!-- TAB: MILESTONES -->
+  <div id="milestones-tab" class="tab-content"><div id="milestonesBody"></div></div>
 
   <!-- TAB 3: THINGS WE NEED -->
   <div id="needs-tab" class="tab-content">
@@ -626,6 +667,7 @@
         showBanner('');
         updateSummary();
         rerenderLists();
+        if (document.getElementById('milestones-tab').classList.contains('active')) renderMilestones();
         if (first || changed || analyticsDirty) {
           if (analyticsActive) renderAnalytics(); else analyticsDirty = true;
         }
@@ -955,6 +997,11 @@
       const id = t.toLowerCase();
       const feeds = DB.feed.filter(r => r.twin === t);
       $(`${id}-total`).textContent = `${sum(feeds.filter(r => r.date === tk).map(r => r.amount))} ml`;
+
+      // daily milk target: most recent logged weight (kg) x 150 ml
+      const wRows = DB.growth.filter(r => r.twin === t && r.weight !== null && r.weight > 0).sort((a, b) => dateFromKey(a.date) - dateFromKey(b.date) || a.row - b.row);
+      const wl = wRows[wRows.length - 1];
+      $(`${id}-target`).textContent = wl ? `Target ${Math.round(wl.weight * 150)} ml (${wl.weight} kg × 150)` : 'Target: log a weight';
 
       let last = null;
       feeds.forEach(r => { const ts = timestampOf(r); if (ts !== null && ts <= Date.now() + 60000 && (last === null || ts > last)) last = ts; });
@@ -1459,6 +1506,268 @@
     sendNeed({ type: 'need_remove', id });
   }
 
+
+  /* ================= MILESTONES & WHO GROWTH STANDARDS ================= */
+
+  const BIRTH = new Date(2026, 7, 20);              // 20 Aug 2026
+  const SEX = { Margot: 'g', Marshall: 'b' };
+  // WHO Child Growth Standards (0-24 months): [L, M, S] for each completed month
+  const WHO = {"wfa_b":[[0.3487,3.3464,0.14602],[0.2297,4.4709,0.13395],[0.197,5.5675,0.12385],[0.1738,6.3762,0.11727],[0.1553,7.0023,0.11316],[0.1395,7.5105,0.1108],[0.1257,7.934,0.10958],[0.1134,8.297,0.10902],[0.1021,8.6151,0.10882],[0.0917,8.9014,0.10881],[0.082,9.1649,0.10891],[0.073,9.4122,0.10906],[0.0644,9.6479,0.10925],[0.0563,9.8749,0.10949],[0.0487,10.0953,0.10976],[0.0413,10.3108,0.11007],[0.0343,10.5228,0.11041],[0.0275,10.7319,0.11079],[0.0211,10.9385,0.11119],[0.0148,11.143,0.11164],[0.0087,11.3462,0.11211],[0.0029,11.5486,0.11261],[-0.0028,11.7504,0.11314],[-0.0083,11.9514,0.11369],[-0.0137,12.1515,0.11426]],"wfa_g":[[0.3809,3.2322,0.14171],[0.1714,4.1873,0.13724],[0.0962,5.1282,0.13],[0.0402,5.8458,0.12619],[-0.005,6.4237,0.12402],[-0.043,6.8985,0.12274],[-0.0756,7.297,0.12204],[-0.1039,7.6422,0.12178],[-0.1288,7.9487,0.12181],[-0.1507,8.2254,0.12199],[-0.17,8.48,0.12223],[-0.1872,8.7192,0.12247],[-0.2024,8.9481,0.12268],[-0.2158,9.1699,0.12283],[-0.2278,9.387,0.12294],[-0.2384,9.6008,0.12299],[-0.2478,9.8124,0.12303],[-0.2562,10.0226,0.12306],[-0.2637,10.2315,0.12309],[-0.2703,10.4393,0.12315],[-0.2762,10.6464,0.12323],[-0.2815,10.8534,0.12335],[-0.2862,11.0608,0.1235],[-0.2903,11.2688,0.12369],[-0.2941,11.4775,0.1239]],"len_b":[[1.0,49.8842,0.03795],[1.0,54.7244,0.03557],[1.0,58.4249,0.03424],[1.0,61.4292,0.03328],[1.0,63.886,0.03257],[1.0,65.9026,0.03204],[1.0,67.6236,0.03165],[1.0,69.1645,0.03139],[1.0,70.5994,0.03124],[1.0,71.9687,0.03117],[1.0,73.2812,0.03118],[1.0,74.5388,0.03125],[1.0,75.7488,0.03137],[1.0,76.9186,0.03154],[1.0,78.0497,0.03174],[1.0,79.1458,0.03197],[1.0,80.2113,0.03222],[1.0,81.2487,0.0325],[1.0,82.2587,0.03279],[1.0,83.2418,0.0331],[1.0,84.1996,0.03342],[1.0,85.1348,0.03376],[1.0,86.0477,0.0341],[1.0,86.941,0.03445],[1.0,87.8161,0.03479]],"len_g":[[1.0,49.1477,0.0379],[1.0,53.6872,0.0364],[1.0,57.0673,0.03568],[1.0,59.8029,0.0352],[1.0,62.0899,0.03486],[1.0,64.0301,0.03463],[1.0,65.7311,0.03448],[1.0,67.2873,0.03441],[1.0,68.7498,0.0344],[1.0,70.1435,0.03444],[1.0,71.4818,0.03452],[1.0,72.771,0.03464],[1.0,74.015,0.03479],[1.0,75.2176,0.03496],[1.0,76.3817,0.03514],[1.0,77.5099,0.03534],[1.0,78.6055,0.03555],[1.0,79.671,0.03576],[1.0,80.7079,0.03598],[1.0,81.7182,0.0362],[1.0,82.7036,0.03643],[1.0,83.6654,0.03666],[1.0,84.604,0.03688],[1.0,85.5202,0.03711],[1.0,86.4153,0.03734]],"hc_b":[[1.0,34.4618,0.03686],[1.0,37.2759,0.03133],[1.0,39.1285,0.02997],[1.0,40.5135,0.02918],[1.0,41.6317,0.02868],[1.0,42.5576,0.02837],[1.0,43.3306,0.02817],[1.0,43.9803,0.02804],[1.0,44.53,0.02796],[1.0,44.9998,0.02792],[1.0,45.4051,0.0279],[1.0,45.7573,0.02789],[1.0,46.0661,0.02789],[1.0,46.3395,0.02789],[1.0,46.5844,0.02791],[1.0,46.806,0.02792],[1.0,47.0088,0.02795],[1.0,47.1962,0.02797],[1.0,47.3711,0.028],[1.0,47.5357,0.02803],[1.0,47.6919,0.02806],[1.0,47.8408,0.0281],[1.0,47.9833,0.02813],[1.0,48.1201,0.02817],[1.0,48.2515,0.02821]],"hc_g":[[1.0,33.8787,0.03496],[1.0,36.5463,0.0321],[1.0,38.2521,0.03168],[1.0,39.5328,0.0314],[1.0,40.5817,0.03119],[1.0,41.459,0.03102],[1.0,42.1995,0.03087],[1.0,42.829,0.03075],[1.0,43.3671,0.03063],[1.0,43.83,0.03053],[1.0,44.2319,0.03044],[1.0,44.5844,0.03035],[1.0,44.8965,0.03027],[1.0,45.1752,0.03019],[1.0,45.4265,0.03012],[1.0,45.6551,0.03006],[1.0,45.865,0.02999],[1.0,46.0598,0.02993],[1.0,46.2424,0.02987],[1.0,46.4152,0.02982],[1.0,46.5801,0.02977],[1.0,46.7384,0.02972],[1.0,46.8913,0.02967],[1.0,47.0391,0.02962],[1.0,47.1822,0.02957]]};
+  const CENTILES = [[0.4, -2.652], [2, -2.054], [9, -1.341], [25, -0.674], [50, 0], [75, 0.674], [91, 1.341], [98, 2.054], [99.6, 2.652]];
+  const METRICS = { weight: { key: 'wfa', label: 'Weight', unit: 'kg', dp: 2 }, length: { key: 'len', label: 'Length', unit: 'cm', dp: 1 }, head: { key: 'hc', label: 'Head', unit: 'cm', dp: 1 } };
+
+  function lms(metric, sex, months) {
+    const tab = WHO[METRICS[metric].key + '_' + sex];
+    const a = Math.max(0, Math.min(24, months)), i = Math.min(23, Math.floor(a)), t = a - i;
+    const L = tab[i][0] * (1 - t) + tab[i + 1][0] * t, S = tab[i][2] * (1 - t) + tab[i + 1][2] * t;
+    const p0 = tab[Math.max(0, i - 1)][1], p1 = tab[i][1], p2 = tab[i + 1][1], p3 = tab[Math.min(24, i + 2)][1];
+    const M = 0.5 * (2 * p1 + (-p0 + p2) * t + (2 * p0 - 5 * p1 + 4 * p2 - p3) * t * t + (-p0 + 3 * p1 - 3 * p2 + p3) * t * t * t);
+    return [L, M, S];
+  }
+  function valueAtZ(metric, sex, months, z) { const [L, M, S] = lms(metric, sex, months); return Math.abs(L) < 1e-9 ? M * Math.exp(S * z) : M * Math.pow(1 + L * S * z, 1 / L); }
+  function zScore(metric, sex, months, x) { const [L, M, S] = lms(metric, sex, months); return Math.abs(L) < 1e-9 ? Math.log(x / M) / S : (Math.pow(x / M, L) - 1) / (L * S); }
+  function normCdf(z) {
+    const t = 1 / (1 + 0.2316419 * Math.abs(z)), d = 0.3989423 * Math.exp(-z * z / 2);
+    const p = d * t * (0.3193815 + t * (-0.3565638 + t * (1.781478 + t * (-1.821256 + t * 1.330274))));
+    return z > 0 ? 1 - p : p;
+  }
+  const pctOf = (metric, sex, months, x) => normCdf(zScore(metric, sex, months, x)) * 100;
+  function ordinal(n) { const v = n % 100; return n + ((v >= 11 && v <= 13) ? 'th' : ['th', 'st', 'nd', 'rd'][n % 10 > 3 ? 0 : n % 10] || 'th'); }
+  function pctText(p) { return p < 0.1 ? 'below the 0.4th' : p > 99.9 ? 'above the 99.6th' : p < 1 ? 'about the 0.5th' : p > 99 ? 'about the 99.5th' : 'about the ' + ordinal(Math.round(p)); }
+
+  // Premature babies: use "corrected" age (weeks born early are taken off)
+  let earlyWeeks = { Margot: 4, Marshall: 4 };   // both born 4 weeks early
+  try { const s = JSON.parse(localStorage.getItem('twinEarlyWeeks') || '{}'); ['Margot', 'Marshall'].forEach(n => { if (s[n] >= 0 && s[n] <= 16) earlyWeeks[n] = +s[n]; }); } catch (e) {}
+  function ageDaysOn(date, twin) { return Math.round((date - BIRTH) / 86400000) - earlyWeeks[twin] * 7; }
+  function ageMonthsOn(date, twin, actual) { return Math.max(0, (actual ? Math.round((date - BIRTH) / 86400000) : ageDaysOn(date, twin)) / 30.4375); }
+  function ageText(days) {
+    if (days < 0) return 'not yet due';
+    if (days < 14) return days + (days === 1 ? ' day' : ' days');
+    if (days < 90) { const w = Math.floor(days / 7), d = days % 7; return w + ' weeks' + (d ? ' ' + d + 'd' : ''); }
+    const m = days / 30.4375, mo = Math.floor(m), w = Math.round((m - mo) * 4.345);
+    return mo + (mo === 1 ? ' month' : ' months') + (w && mo < 12 ? ' ' + w + 'w' : '');
+  }
+
+  const STAGES = [
+    { id: 1, from: 0, label: 'Newborn', title: 'Newborn (0 to 6 weeks)',
+      miles: [['Social', 'Looks at your face when you are close, and settles to a familiar voice'], ['Movement', 'Moves arms and legs, and briefly turns the head side to side'], ['Hearing', 'Startles or blinks at loud sounds'], ['Communication', 'Cries to tell you what they need']],
+      play: ['Skin to skin and lots of cuddles', 'Hold your face 20 to 30cm away and talk, sing or pull gentle faces', 'Black and white or high contrast cards to look at', 'Short, calm tummy time on your chest while you are awake'],
+      twin: 'Babies this age are not ready to play together yet. One adult each for a few minutes of face time is plenty, and little and often works best.',
+      flag: ['Does not seem to react to loud sounds', 'Does not look at faces when held close', 'Feeding or alertness worries you at any point'] },
+    { id: 2, from: 1.5, label: '2 months', title: '2 months',
+      miles: [['Social', 'Smiles back at you, the first real social smile'], ['Communication', 'Makes cooing sounds and "talks" back when you pause'], ['Vision', 'Follows you or a toy with their eyes, and looks at faces'], ['Movement', 'Holds head up briefly on tummy, and opens hands now and then'], ['Calming', 'Settles a little when you talk or pick them up']],
+      play: ['Tummy time a few times a day, on a play mat or your chest', 'Face to face chats: copy their sounds, wait, and let them answer', 'Slowly move a bright toy side to side for them to follow', 'Sing and rock, or dance gently while holding them', 'Let them bat at a rattle or soft hanging toy'],
+      twin: 'Put them side by side on a mat on their backs so they can see and hear each other. Tummy time can happen together, facing one another, with you in between.',
+      flag: ['Does not smile at people', 'Does not watch things move or follow with their eyes', 'Does not seem to react to loud sounds', 'Cannot hold their head up at all when pushing up on the tummy'],
+      note: 'Routine immunisations in the UK start at 8 weeks. The Red Book has the full schedule.' },
+    { id: 4, from: 3, label: '4 months', title: '4 months',
+      miles: [['Social', 'Smiles on their own to get your attention, and chuckles'], ['Communication', 'Babbles with "ah" and "oh" sounds, and turns to your voice'], ['Movement', 'Holds head steady, pushes up onto elbows on tummy'], ['Hands', 'Reaches for a toy and brings hands to mouth'], ['Vision', 'Follows a moving toy all the way across'], ['Play', 'Copies some faces and movements']],
+      play: ['Hang a toy just within reach and let them swipe at it', 'Floor time on a mat with a mirror so they can see their own face', 'Blow bubbles and let them watch', 'Rattles and crinkly cloth books to hold and shake', 'Name things as you go through the day'],
+      twin: 'They are starting to notice each other. A supervised face to face floor session is a good first "playdate".',
+      flag: ['Does not follow moving things with their eyes', 'Does not smile at people', 'Does not bring hands to mouth', 'Does not push up on arms when on tummy'],
+      note: 'More routine immunisations are due around 12 and 16 weeks.' },
+    { id: 6, from: 5, label: '6 months', title: '6 months',
+      miles: [['Movement', 'Rolls from tummy to back, and may sit with support'], ['Social', 'Knows familiar faces, and likes looking at themselves in a mirror'], ['Communication', 'Takes turns making sounds, and blows raspberries'], ['Hands', 'Passes a toy from hand to hand, and puts things in the mouth'], ['Feelings', 'Laughs, and shows when happy or upset']],
+      play: ['Roll a ball or soft toy just out of reach so they roll or reach for it', 'Peekaboo with a muslin', 'Play with safe objects of different textures', 'Name body parts while dressing or changing', 'Read short, colourful picture books together'],
+      twin: 'Two babies can pass each other a toy on a mat, and will start to copy each other. Keep an eye out for grabbing.',
+      flag: ['Does not try to reach for things', 'Does not roll in either direction', 'Does not laugh or make squealing sounds', 'Seems very stiff or very floppy'],
+      note: 'This is the usual time to start introducing solid food (around 6 months).' },
+    { id: 9, from: 7.5, label: '9 months', title: '9 months',
+      miles: [['Movement', 'Sits without support, and may start to crawl, shuffle or pull to stand'], ['Communication', 'Babbles strings such as "mamama" and "bababa"'], ['Social', 'May be shy or upset with strangers, and clingy with you'], ['Understanding', 'Looks for a toy you hide, and understands "no"'], ['Hands', 'Moves things from hand to hand, and starts to pick up small bits with finger and thumb']],
+      play: ['Peekaboo, and hide a toy under a cloth so they can find it', 'Stacking cups and a basket of safe things to take out and put back', 'Clear floor space with toys just out of reach to encourage crawling', 'Name what you see when you are out and about', 'Bath toys that pour and splash'],
+      twin: 'Crawling races are likely soon. They may also take toys from each other, so have two of the favourites.',
+      flag: ['Does not bear weight on legs with support', 'Cannot sit with help', 'Does not babble', 'Does not look where you point'],
+      note: 'Babies move at very different speeds. Some skip crawling altogether.' },
+    { id: 12, from: 10.5, label: '12 months', title: '12 months',
+      miles: [['Movement', 'Pulls up to stand, cruises along furniture, may take first steps'], ['Communication', 'Says "mama" or "dada", waves bye bye, and points to things'], ['Understanding', 'Looks at the right thing when you name it, and responds to "no"'], ['Hands', 'Picks things up with finger and thumb, and puts things into a container'], ['Feeding', 'Drinks from an open or straw cup with help']],
+      play: ['Push along walkers or sturdy boxes to practise cruising', 'Simple books: point to pictures and say what they are', 'Posting games: shape sorters, blocks into a tub', 'Songs with actions such as "wheels on the bus"', 'Hide and find with a favourite toy'],
+      twin: 'Let them have time each with just one of you, since their talking will be shaped by how much one to one chat they get.',
+      flag: ['Does not crawl, shuffle or bear weight on legs', 'Does not point to things', 'Does not wave or use gestures', 'Does not say any single words yet, or loses skills they had'],
+      note: 'The 12 month immunisations and review are due about now.' },
+    { id: 15, from: 13.5, label: '15 months', title: '15 months',
+      miles: [['Movement', 'Takes a few steps alone'], ['Communication', 'Tries one or two words besides "mama" and "dada", and shakes head for "no"'], ['Social', 'Copies other children and likes showing you things'], ['Hands', 'Tries to scribble and stack 2 blocks'], ['Understanding', 'Follows a simple spoken instruction like "give it to me"']],
+      play: ['Stack blocks and knock them down', 'Chunky crayons and big sheets of paper', 'Roll a ball back and forth', 'Name and sort everyday objects: cup, shoe, ball', 'Pretend play with a toy phone or teddy'],
+      twin: 'Parallel play is normal: they sit near each other doing the same thing without really playing together.',
+      flag: ['Does not walk or try to walk', 'Does not point to show you something', 'Does not copy gestures', 'Loses skills they had before'] },
+    { id: 18, from: 16.5, label: '18 months', title: '18 months',
+      miles: [['Movement', 'Walks alone and begins to climb or walk up steps'], ['Communication', 'Says 3 or more words and understands more than they can say'], ['Understanding', 'Follows one step instructions without gestures'], ['Play', 'Pretend play, such as feeding a doll'], ['Hands', 'Scribbles, drinks from a cup and starts to use a spoon']],
+      play: ['Pretend play: tea party, dolls and teddies', 'Simple puzzles with big pieces', 'Water and sand play with scoops and cups', 'Walks and treasure hunts outdoors', 'Read daily and let them turn the pages'],
+      twin: 'Toddlers want to say "mine!". Duplicate toys and short, clear turn taking games help.',
+      flag: ['Does not walk', 'Does not say several single words', 'Does not point to show you things', 'Does not copy others or seem to know familiar objects'],
+      note: 'The 18 month and 2 year checks are a good time to share any worries about talking or walking.' },
+    { id: 24, from: 21, label: '2 years', title: '2 years',
+      miles: [['Movement', 'Runs, kicks a ball, and walks up stairs holding on'], ['Communication', 'Puts two words together and uses around 50 words'], ['Understanding', 'Points to things in a book when asked, and follows two step instructions'], ['Play', 'Plays alongside other children, and starts to play pretend with others'], ['Hands', 'Eats with a spoon and builds a tower of 4 or more blocks']],
+      play: ['Kick, throw and chase balls in the garden', 'Dancing and action songs', 'Playdough, finger paints, and big chunky puzzles', 'Dressing up and role play', 'Reading the same favourite books over and over'],
+      twin: 'Twins can talk in their own way for longer. Keep chatting to each of them separately as well.',
+      flag: ['Does not use two words together', 'Does not copy actions or words', 'Cannot walk steadily', 'Loses skills they had before'] }
+  ];
+  const stageIndexFor = months => { let i = 0; STAGES.forEach((s, k) => { if (months >= s.from) i = k; }); return i; };
+  let msStage = null;     // chosen stage index; null = follow the babies' age
+
+  function svgEl(tag, attrs, text) {
+    const e = document.createElementNS('http://www.w3.org/2000/svg', tag);
+    for (const k in attrs) e.setAttribute(k, attrs[k]);
+    if (text !== undefined) e.textContent = text;
+    return e;
+  }
+
+  function drawWhoChart(host, metric) {
+    host.textContent = '';
+    const info = METRICS[metric], W = 340, H = 250, ml = 38, mr = 10, mt = 18, mb = 30;
+    const today = new Date();
+    const oldest = Math.max(ageMonthsOn(today, 'Margot'), ageMonthsOn(today, 'Marshall'));
+    const pts = [];
+    ['Margot', 'Marshall'].forEach(tw => DB.growth.filter(r => r.twin === tw && r[metric] !== null && r[metric] > 0).forEach(r => {
+      const d = dateFromKey(r.date); pts.push({ twin: tw, m: ageMonthsOn(d, tw), ma: ageMonthsOn(d, tw, true), v: r[metric], d });
+    }));
+    const maxM = Math.max(oldest, ...pts.map(p => p.ma));
+    const MW = 30.4375 / 7;   // weeks per month
+    const xmaxW = [13, 26, 52, 104].find(w => w >= maxM * MW + 1.5) || 104, xmax = xmaxW / MW;
+    const lines = CENTILES.map(c => ({ c: c[0], z: c[1], pts: [] }));
+    for (let m = 0; m <= xmax + 1e-9; m += xmax / 48) lines.forEach(l => l.pts.push([m, valueAtZ(metric, 'g', m, l.z), valueAtZ(metric, 'b', m, l.z)]));
+    // y range from both sexes
+    let lo = Infinity, hi = -Infinity;
+    lines.forEach(l => l.pts.forEach(p => { lo = Math.min(lo, p[1], p[2]); hi = Math.max(hi, p[1], p[2]); }));
+    pts.forEach(p => { lo = Math.min(lo, p.v); hi = Math.max(hi, p.v); });
+    const step = metric === 'weight' ? (hi - lo > 8 ? 2 : 1) : (hi - lo > 30 ? 10 : 5);
+    lo = Math.floor(lo / step) * step; hi = Math.ceil(hi / step) * step;
+    const X = m => ml + (m / xmax) * (W - ml - mr), Y = v => mt + (1 - (v - lo) / (hi - lo)) * (H - mt - mb);
+    const svg = svgEl('svg', { viewBox: `0 0 ${W} ${H}`, class: 'who-svg', role: 'img', 'aria-label': `WHO ${info.label.toLowerCase()} centile chart with Margot and Marshall` });
+    for (let v = lo; v <= hi + 1e-9; v += step) {
+      svg.appendChild(svgEl('line', { x1: ml, x2: W - mr, y1: Y(v), y2: Y(v), class: 'who-grid' }));
+      svg.appendChild(svgEl('text', { x: ml - 5, y: Y(v) + 3.5, class: 'who-ax', 'text-anchor': 'end' }, String(v)));
+    }
+    const tickW = xmaxW <= 13 ? 1 : xmaxW <= 26 ? 2 : xmaxW <= 52 ? 4 : 8;
+    for (let w = 0; w <= xmaxW; w += tickW) svg.appendChild(svgEl('text', { x: X(w / MW), y: H - 12, class: 'who-ax', 'text-anchor': 'middle' }, String(w)));
+    svg.appendChild(svgEl('text', { x: (ml + W - mr) / 2, y: H - 1, class: 'who-ax', 'text-anchor': 'middle' }, 'Age in weeks'));
+    svg.appendChild(svgEl('text', { x: ml, y: 8, class: 'who-ax', 'text-anchor': 'middle' }, info.unit));
+    // two sets of centile lines: girls (pink) and boys (blue), faint; 50th bolder
+    [['g', 1, 'var(--margot)'], ['b', 2, 'var(--marshall)']].forEach(([sx, idx, col]) => {
+      lines.forEach(l => {
+        const dd = l.pts.map((p, i) => (i ? 'L' : 'M') + X(p[0]).toFixed(1) + ' ' + Y(p[idx]).toFixed(1)).join('');
+        svg.appendChild(svgEl('path', { d: dd, class: 'who-line' + (l.c === 50 ? ' mid' : ''), stroke: col }));
+      });
+    });
+    // label the centiles at the right edge (girls' lines)
+    lines.forEach(l => { if ([2, 50, 98].includes(l.c)) { const p = l.pts[l.pts.length - 1]; svg.appendChild(svgEl('text', { x: W - mr - 2, y: Y(p[1]) - 2, class: 'who-ax who-lab', 'text-anchor': 'end' }, ordinal(l.c))); } });
+    ['Margot', 'Marshall'].forEach(tw => {
+      const mine = pts.filter(p => p.twin === tw).sort((a, b) => a.m - b.m), col = tw === 'Margot' ? 'var(--margot)' : 'var(--marshall)';
+      if (mine.length > 1) svg.appendChild(svgEl('path', { d: mine.map((p, i) => (i ? 'L' : 'M') + X(p.m).toFixed(1) + ' ' + Y(p.v).toFixed(1)).join(''), class: 'who-trace', stroke: col }));
+      if (earlyWeeks[tw]) mine.forEach(p => svg.appendChild(svgEl('circle', { cx: X(p.ma), cy: Y(p.v), r: 4, class: 'who-dot-actual', stroke: col })));
+      mine.forEach(p => svg.appendChild(svgEl('circle', { cx: X(p.m), cy: Y(p.v), r: 4.5, class: 'who-dot', fill: col })));
+    });
+    host.appendChild(svg);
+  }
+
+  let msMetric = 'weight';
+  function renderMilestones() {
+    const root = $('milestonesBody');
+    if (!root) return;
+    root.textContent = '';
+    const today = new Date();
+    const names = ['Margot', 'Marshall'];
+    const ages = {}; names.forEach(n => ages[n] = ageMonthsOn(today, n));
+
+    // ---- ages
+    const ageCard = mk('div', 'card');
+    ageCard.appendChild(mk('h3', null, '🎂 How old are they?'));
+    const grid = mk('div', 'ms-ages');
+    names.forEach(n => {
+      const box = mk('div', 'ms-age ' + n.toLowerCase());
+      box.appendChild(mk('div', 'ms-age-name', n));
+      box.appendChild(mk('div', 'ms-age-val', ageText(ageDaysOn(today, n))));
+      const stg = STAGES[stageIndexFor(ages[n])];
+      box.appendChild(mk('div', 'ms-age-sub', earlyWeeks[n] ? 'corrected age · ' + stg.label : stg.label + ' stage'));
+      const sel = mk('select', 'ms-early'); sel.setAttribute('aria-label', n + ' born early by');
+      for (let w = 0; w <= 12; w++) { const o = mk('option', null, w ? 'Born ' + w + ' wk early' : 'Born on time'); o.value = w; sel.appendChild(o); }
+      sel.value = earlyWeeks[n];
+      sel.addEventListener('change', () => { earlyWeeks[n] = +sel.value; try { localStorage.setItem('twinEarlyWeeks', JSON.stringify(earlyWeeks)); } catch (e) {} renderMilestones(); });
+      box.appendChild(sel);
+      grid.appendChild(box);
+    });
+    ageCard.appendChild(grid);
+    ageCard.appendChild(mk('div', 'chart-note', 'Both were born 4 weeks early. Milestones use adjusted age, and growth shows both ages.'));
+    root.appendChild(ageCard);
+
+    // ---- milestones
+    const nowIdx = stageIndexFor(Math.min(ages.Margot, ages.Marshall));
+    const idx = msStage === null ? nowIdx : msStage;
+    const st = STAGES[idx];
+    const mc = mk('div', 'card');
+    mc.appendChild(mk('h3', null, '🌱 Milestones'));
+    const chips = mk('div', 'ms-chips');
+    STAGES.forEach((s, k) => {
+      const c = mk('button', 'ms-chip' + (k === idx ? ' active' : '') + (k === nowIdx ? ' now' : ''), s.label);
+      c.type = 'button';
+      c.addEventListener('click', () => { msStage = k === nowIdx ? null : k; renderMilestones(); });
+      chips.appendChild(c);
+    });
+    mc.appendChild(chips);
+    const rel = idx === nowIdx ? 'Around now' : idx > nowIdx ? 'Coming up' : 'Earlier on';
+    mc.appendChild(mk('div', 'ms-rel', rel + ' · ' + st.title));
+    mc.appendChild(mk('div', 'ms-sub', 'Things many babies do by around this age. Every baby is different, and these are a guide, not a test.'));
+    const ul = mk('ul', 'ms-list');
+    st.miles.forEach(m => { const li = mk('li'); li.appendChild(mk('b', null, m[0] + ': ')); li.appendChild(document.createTextNode(m[1])); ul.appendChild(li); });
+    mc.appendChild(ul);
+    root.appendChild(mc);
+
+    const pc = mk('div', 'card');
+    pc.appendChild(mk('h3', null, '🎲 Things to try'));
+    const pl = mk('ul', 'ms-list');
+    st.play.forEach(t => pl.appendChild(mk('li', null, t)));
+    pc.appendChild(pl);
+    const tw = mk('div', 'ms-tip'); tw.appendChild(mk('b', null, '👶👶 With twins: ')); tw.appendChild(document.createTextNode(st.twin));
+    pc.appendChild(tw);
+    root.appendChild(pc);
+
+    const fc = mk('div', 'card');
+    fc.appendChild(mk('h3', null, '💬 Worth mentioning to your health visitor'));
+    const fl = mk('ul', 'ms-list');
+    st.flag.forEach(t => fl.appendChild(mk('li', null, t)));
+    fc.appendChild(fl);
+    if (st.note) fc.appendChild(mk('div', 'ms-tip', 'ℹ️ ' + st.note));
+    fc.appendChild(mk('div', 'chart-note ms-disc', 'Based on the CDC "Learn the Signs. Act Early" checkpoints, reworded. Not medical advice. If you are ever worried, trust your instinct and speak to your health visitor, GP or NHS 111.'));
+    root.appendChild(fc);
+
+    // ---- growth vs WHO
+    const gc = mk('div', 'card');
+    gc.appendChild(mk('h3', null, '📈 Growth vs WHO standards'));
+    const pg = mk('div', 'pill-group');
+    Object.keys(METRICS).forEach(k => {
+      const p = mk('button', 'pill' + (k === msMetric ? ' active' : ''), METRICS[k].label); p.type = 'button';
+      p.addEventListener('click', () => { msMetric = k; renderMilestones(); });
+      pg.appendChild(p);
+    });
+    gc.appendChild(pg);
+    const host = mk('div', 'who-host'); gc.appendChild(host);
+    const key = mk('div', 'who-key');
+    key.innerHTML = '<span><i style="background:var(--margot)"></i>Margot (girls\' lines)</span><span><i style="background:var(--marshall)"></i>Marshall (boys\' lines)</span><span>● adjusted age &nbsp; ○ actual age</span>';
+    gc.appendChild(key);
+    const res = mk('div', 'who-res');
+    const info = METRICS[msMetric];
+    names.forEach(n => {
+      const rows = DB.growth.filter(r => r.twin === n && r[msMetric] !== null && r[msMetric] > 0).sort((a, b) => dateFromKey(a.date) - dateFromKey(b.date));
+      const r = mk('div', 'who-row ' + n.toLowerCase());
+      if (!rows.length) { r.textContent = n + ': no ' + info.label.toLowerCase() + ' logged yet. Add one in Analytics → growth.'; }
+      else {
+        const last = rows[rows.length - 1], d = dateFromKey(last.date), p = pctOf(msMetric, SEX[n], ageMonthsOn(d, n), last[msMetric]);
+        const pa = pctOf(msMetric, SEX[n], ageMonthsOn(d, n, true), last[msMetric]);
+        r.appendChild(mk('b', null, n + ': '));
+        r.appendChild(document.createTextNode(last[msMetric].toFixed(info.dp).replace(/\.?0+$/, '') + ' ' + info.unit + ' on ' + d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }) + ' is ' + pctText(p) + ' centile for adjusted age' + (earlyWeeks[n] ? ' (' + earlyWeeks[n] + ' wks early), and ' + pctText(pa) + ' centile for actual age.' : '.')));
+        if (rows.length > 1) {
+          const first = rows.find(x => (dateFromKey(x.date) - BIRTH) / 86400000 >= 21) || last, p0 = pctOf(msMetric, SEX[n], ageMonthsOn(dateFromKey(first.date), n), first[msMetric]);
+          if (Math.abs(p - p0) > 25 && (p < 5 || p > 95 || Math.abs(p - p0) > 40)) r.appendChild(document.createTextNode(' Moved notably since ' + dateFromKey(first.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }) + '. Worth a chat at the next weigh in.'));
+        }
+        if (p < 0.4 || p > 99.6) r.appendChild(document.createTextNode(' That is outside the usual range, so mention it to your health visitor.'));
+      }
+      res.appendChild(r);
+    });
+    gc.appendChild(res);
+    gc.appendChild(mk('div', 'chart-note ms-disc', 'WHO Child Growth Standards (0 to 24 months). Babies born early are usually plotted on adjusted age (actual age minus weeks early) until about 2 years, so the adjusted figure is the one to go by. Babies often settle onto their own line in the first weeks, and what matters most is a steady pattern over time. UK charts (the Red Book) use the same WHO data from 2 weeks on, but may show slightly different lines at birth. Not medical advice.'));
+    root.appendChild(gc);
+    drawWhoChart(host, msMetric);
+  }
+
   /* ================= WIRING ================= */
 
   function switchTab(tabId) {
@@ -1471,6 +1780,7 @@
       loadAll().catch(() => {});
     }
     if (tabId === 'log-tab') { if (logForm) logForm.freshen(); loadAll().catch(() => {}); }
+    if (tabId === 'milestones-tab') { renderMilestones(); loadAll().catch(() => {}); }
     if (tabId === 'needs-tab') loadNeeds();
   }
 
@@ -1529,4 +1839,3 @@
 
 </body>
 </html>
-
